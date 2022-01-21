@@ -13,6 +13,9 @@ require_once('inc/head.php');
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     require_once('inc/userbar.php');
 }else{
+    if ($_SESSION['username'] == 'admin') {
+        require_once('inc/navbar.php');
+    }
     if ( $_SESSION["memberOf"] == "Major Incident Management" ) {
         require_once('inc/navbar.php');
     }elseif ( $_SESSION["memberOf"] == "IT Business Communication" ) {
