@@ -37,6 +37,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = $passed_password;
     }
     
+    // =======> READ THIS!!!! ATTENTION!!!!!!!!!!!!!!! <=============
+    // From this point to the comment //END ADMIN LOGIN is used for a fresh install. Once you've logged in as this account,
+    // you should create a new administrative user, and comment/delete this code from your instance. Leaving this code in will be a security
+    // risk for your application.  
+    if ($username == 'admin' && $password == 'admin') {
+        // Password is correct, so start a new session
+        session_start();
+
+        // Store data in session variables
+        $_SESSION["loggedin"] = true;
+        $_SESSION["id"] = $id;
+        $_SESSION["username"] = $username;
+        $_SESSION["displayname"] = 'Admin';
+        // Redirect user to welcome page
+        header("location: index.php");
+        exit();
+    }
+    //END ADMIN LOGIN
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
@@ -71,38 +89,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["memberOf"] = $memberOf; 
 			                $_SESSION["cssMode"] = $cssMode;
                             // Redirect user to welcome page
-			    if ( $memberOf == "Major Incident Management" ) {
-                                header("location: index.php");
-			    }else{
-			        header("location: businessIndex.php");
-			    }
+                            if ( $memberOf == "Major Incident Management" ) {
+                                            header("location: index.php");
+                            }else{
+			                    header("location: businessIndex.php");
+			                }
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
                         }
-                    }
-                // =======> READ THIS!!!! ATTENTION!!!!!!!!!!!!!!! <=============
-                // From this point to the comment //END ADMIN LOGIN is used for a fresh install. Once you've logged in as this account,
-                // you should create a new administrative user, and comment/delete this code from your instance. Leaving this code in will be a security
-                // risk for your application.  
-                else{
-                    if ($username = 'admin' && $password = 'admin') {
-                        // Password is correct, so start a new session
-                                session_start();
-
-                                // Store data in session variables
-                                $_SESSION["loggedin"] = true;
-                                $_SESSION["id"] = $id;
-                                $_SESSION["username"] = $username;
-                    $_SESSION["displayname"] = 'Admin';
-                                // Redirect user to welcome page
-                                header("location: index.php");
-                    }
-                //END ADMIN LOGIN
-		  else{
+                    }else{
                         // Display an error message if username doesn't exist
                         $username_err = "No account found with that username.";
-		    }
+		            }
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
