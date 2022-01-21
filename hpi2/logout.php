@@ -6,6 +6,8 @@ if(!isset($_SESSION))
         session_start();
     }
 
+$domain = $_SERVER['HTTP_HOST'];
+
 // Unset all of the session variables
 $_SESSION = array();
  
@@ -13,6 +15,6 @@ $_SESSION = array();
 session_destroy();
  
 // Redirect to login page
-header("location: index.php");
-exit;
+header("location: http://" . $domain .  "/hpi2/index.php");
+exit();
 ?>

@@ -2,6 +2,8 @@
 session_start();
 require_once('config.php');
 
+$domain = $_SERVER['HTTP_HOST'];
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Setting parameters
     $username = $_SESSION['username'];
@@ -13,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$_SESSION['cssMode'] = 'Light';
     }
     $out = putCssMode($username, $cssmode);
-    header("location: index.php");
+    header("location: http://" . $domain .  "/hpi2/index.php");
 }
 
 ?>

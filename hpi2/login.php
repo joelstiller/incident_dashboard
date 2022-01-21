@@ -5,9 +5,11 @@ if(!isset($_SESSION))
         session_start(); 
     } 
  
+$domain = $_SERVER['HTTP_HOST'];
+
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: admin.php");
+    header("location: http://" . $domain .  "/hpi2/admin.php");
     exit;
 }
  
@@ -51,7 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION["username"] = $username;
         $_SESSION["displayname"] = 'Admin';
         // Redirect user to welcome page
-        header("location: index.php");
+        header("location: http://" . $domain .  "/hpi2/index.php");
         exit();
     }
     //END ADMIN LOGIN
@@ -90,9 +92,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			                $_SESSION["cssMode"] = $cssMode;
                             // Redirect user to welcome page
                             if ( $memberOf == "Major Incident Management" ) {
-                                            header("location: index.php");
+                                header("location: http://" . $domain .  "/hpi2/index.php");
                             }else{
-			                    header("location: businessIndex.php");
+                                header("location: http://" . $domain .  "/hpi2/businessIndex.php");
 			                }
                         } else{
                             // Display an error message if password is not valid

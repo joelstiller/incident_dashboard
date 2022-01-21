@@ -9,12 +9,13 @@ if(!isset($_SESSION))
         session_start();
     }
 
+$domain = $_SERVER['HTTP_HOST'];
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: /hpi2/businessIndex.php");
+    header("location: http://" . $domain .  "/hpi2/businessIndex.php");
 }
 if ( $_SESSION["memberOf"] != "IT Business Communication" ) {
-    header("Location: /hpi2/businessIndex.php");
+    header("location: http://" . $domain .  "/hpi2/businessIndex.php");
 }
 
 // Processing form data when form is submitted
@@ -31,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Redirect to login page
-            header("location: /hpi2/businessIndex.php");
+            header("location: http://" . $domain .  "/hpi2/businessIndex.php");
         }else{
             echo "Something went wrong. Please try again later.";
         }

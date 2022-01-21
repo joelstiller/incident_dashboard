@@ -8,9 +8,12 @@ if(!isset($_SESSION))
         session_start();
     }
 
+    
+$domain = $_SERVER['HTTP_HOST'];
+
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: /hpi2/index.php");
+    header("location: http://" . $domain .  "/hpi2/index.php");
     require_once('inc/userbar.php');
 }else{
     if ( $_SESSION["memberOf"] == "Major Incident Management" ) {
@@ -34,7 +37,7 @@ if($stmt = mysqli_prepare($link, $sql)){
     // Attempt to execute the prepared statement
     if(mysqli_stmt_execute($stmt)){
     // Redirect to login page
-        header("location: /hpi2/details.php?INC=$inc");
+        header("location: http://" . $domain . "/hpi2/details.php?INC=$inc");
     }else{
         echo "Something went wrong. Please try again later.";
     }

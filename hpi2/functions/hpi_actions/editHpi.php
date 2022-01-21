@@ -8,9 +8,11 @@ if(!isset($_SESSION))
         session_start();
     }
 
+$domain = $_SERVER['HTTP_HOST'];
+
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("Location: /hpi2/index.php");
+    header("location: http://" . $domain .  "/hpi2/index.php");
     require_once('inc/userbar.php');
 }else{
     if ( $_SESSION["memberOf"] == "Major Incident Management" ) {
@@ -41,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Redirect to login page
-            header("location: /hpi2/index.php");
+            header("location: http://" . $domain .  "/hpi2/index.php");
         }else{
             echo "Something went wrong. Please try again later.";
         }
@@ -77,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 $('#keyField').on('change', function(){
     var snowTicket = $('#keyField option:selected' ).text(); // or $(this).val()
     $.ajax({
-        url: "/hpi2/functions/getEditForm.php",
+        url: <?php echo "\"http://$domain/hpi2/functions/getEditForm.php\"" ?>,
         method: "POST",
         dataType:'html',
         timeout: 5000,
