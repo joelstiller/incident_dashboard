@@ -10,10 +10,11 @@ if(!isset($_SESSION))
     }
 
 // Check if the user is logged in, if not then redirect him to login page
+
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("Location: index.php");
 }
-if ( $_SESSION["memberOf"] != "Major Incident Management" ) {
+if ( $_SESSION["memberOf"] != "Major Incident Management" || $_SESSION['username'] != 'admin' ) {
     header("Location: index.php");
 }
 

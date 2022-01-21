@@ -14,7 +14,7 @@ if(!isset($_SESSION))
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("Location: index.php");
 }
-if ( $_SESSION["memberOf"] != "Major Incident Management" ) {
+if ( $_SESSION["memberOf"] != "Major Incident Management" || $_SESSION['username'] != 'admin' ) {
     header("Location: index.php");
 }
 
