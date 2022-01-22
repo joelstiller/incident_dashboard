@@ -24,3 +24,6 @@ date.timezone = America/New_York
 Edit /hpi2/inc/config.php to include your database info (User/Pass/IP Address)
 
 Once you're up and running the default login is username: admin, password: admin. Once you log in, create your own user account, then edit login.php, and comment out the code that's highlighted between comments. 
+
+# Working Example
+http://ec2-18-212-69-11.compute-1.amazonaws.com/hpi2/index.php
